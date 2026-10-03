@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="homePage">
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero-section">
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="badge-sparkle">✨</span>
+        <span>EduGenie AI • Learn faster, understand better, and study smarter.</span>
+      </div>
+
+      <h1 class="hero-title">
+        Your AI-Powered <br>
+        <span class="gradient-text">Learning Companion</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Learn faster, understand better, and study smarter with EduGenie.
+      </p>
+
+      <div class="hero-actions">
+        <a href="/ask-ai" class="btn btn-primary btn-lg">
+          <span>Ask AI</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="#features" class="btn btn-secondary btn-lg">
+          <span>Explore Features</span>
+        </a>
+      </div>
+
+      <!-- Quick Statistics (Populated from localStorage activity) -->
+      <div class="quick-stats-container">
+        <div class="quick-stat-card">
+          <div class="stat-icon-wrap stat-blue">💬</div>
+          <div class="stat-info">
+            <div class="stat-number" id="homeQuestionsCount">0</div>
+            <div class="stat-name">Questions Asked</div>
+          </div>
+        </div>
+
+        <div class="quick-stat-card">
+          <div class="stat-icon-wrap stat-purple">📝</div>
+          <div class="stat-info">
+            <div class="stat-number" id="homeQuizzesCount">0</div>
+            <div class="stat-name">Quizzes Completed</div>
+          </div>
+        </div>
+
+        <div class="quick-stat-card">
+          <div class="stat-icon-wrap stat-amber">💡</div>
+          <div class="stat-info">
+            <div class="stat-number" id="homeTopicsCount">0</div>
+            <div class="stat-name">Topics Studied</div>
+          </div>
+        </div>
+
+        <div class="quick-stat-card">
+          <div class="stat-icon-wrap stat-emerald">🔥</div>
+          <div class="stat-info">
+            <div class="stat-number" id="homeStreakCount">0 Days</div>
+            <div class="stat-name">Learning Streak</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-footer-note" id="homeStatsNote">
+        <span class="pulse-indicator"></span> Start learning to build your personal study streak and progress!
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FEATURE CARDS SECTION ==================== -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="sub-heading">Intelligent Learning Modules</div>
+        <h2 class="section-title">Everything you need to master any subject</h2>
+        <p class="section-desc">Choose a dedicated learning module below to start your study session.</p>
+      </div>
+
+      <div class="features-grid">
+        
+        <!-- Card 1: Ask AI -->
+        <a href="/ask-ai" class="feature-card-link">
+          <div class="feature-card">
+            <div class="feature-card-top">
+              <div class="feature-icon-wrapper icon-blue">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 10h.01"/></svg>
+              </div>
+              <span class="card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </div>
+            <h3 class="feature-title">Ask AI</h3>
+            <p class="feature-description">Ask any academic question and receive direct, concise, student-friendly explanations with key takeaways.</p>
+            <div class="card-badge-row">
+              <span class="micro-badge">Instant Answers</span>
+              <span class="micro-badge">Any Subject</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2: Explain -->
+        <a href="/explain" class="feature-card-link">
+          <div class="feature-card featured">
+            <div class="popular-tag">Student Favorite</div>
+            <div class="feature-card-top">
+              <div class="feature-icon-wrapper icon-amber">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+              </div>
+              <span class="card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </div>
+            <h3 class="feature-title">Explain</h3>
+            <p class="feature-description">Break down difficult concepts into simple definitions, mechanics, real-world analogies, and pro tips.</p>
+            <div class="card-badge-row">
+              <span class="micro-badge">5-Part Breakdown</span>
+              <span class="micro-badge">Zero Jargon</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3: Quiz -->
+        <a href="/quiz" class="feature-card-link">
+          <div class="feature-card">
+            <div class="feature-card-top">
+              <div class="feature-icon-wrapper icon-purple">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <span class="card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </div>
+            <h3 class="feature-title">Quiz</h3>
+            <p class="feature-description">Test your understanding with customized multiple-choice quizzes featuring instant scoring and review.</p>
+            <div class="card-badge-row">
+              <span class="micro-badge">Interactive</span>
+              <span class="micro-badge">Score Tracking</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4: Summarize -->
+        <a href="/summarize" class="feature-card-link">
+          <div class="feature-card">
+            <div class="feature-card-top">
+              <div class="feature-icon-wrapper icon-emerald">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <span class="card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </div>
+            <h3 class="feature-title">Summarize</h3>
+            <p class="feature-description">Distill dense textbook chapters, lecture notes, and articles into high-yield revision summaries.</p>
+            <div class="card-badge-row">
+              <span class="micro-badge">Two-Panel View</span>
+              <span class="micro-badge">Metric Insights</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 5: Learning Path -->
+        <a href="/learning-path" class="feature-card-link">
+          <div class="feature-card">
+            <div class="feature-card-top">
+              <div class="feature-icon-wrapper icon-cyan">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg>
+              </div>
+              <span class="card-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </div>
+            <h3 class="feature-title">Learning Path</h3>
+            <p class="feature-description">Map out personalized, multi-stage roadmaps from foundational basics to advanced mastery with resources.</p>
+            <div class="card-badge-row">
+              <span class="micro-badge">Visual Roadmap</span>
+              <span class="micro-badge">Project Guides</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUICK CTA BANNER ==================== -->
+  <section class="home-cta-section">
+    <div class="container">
+      <div class="cta-banner-card">
+        <div class="cta-text-content">
+          <h3>Ready to study smarter?</h3>
+          <p>No registration or account required. Choose a tool above or start with Ask AI.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="/ask-ai" class="btn btn-primary btn-lg">Launch Ask AI</a>
+          <a href="/progress" class="btn btn-secondary btn-lg">View My Progress</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

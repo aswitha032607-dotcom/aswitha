@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-container" id="askAiPage">
+  <div class="container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-badge">💬 Academic AI Tutor</div>
+      <h1 class="page-title">Ask EduGenie</h1>
+      <p class="page-subtitle">Ask anything you want to learn. Get clear, step-by-step academic explanations tailored to your level.</p>
+    </div>
+
+    <!-- Main Workspace Card -->
+    <div class="workspace-card">
+      
+      <!-- Options Row: Optional Subject & Optional Difficulty -->
+      <div class="filter-controls-row">
+        <div class="form-group-flex">
+          <label for="qaSubject" class="control-label">Optional Subject Domain</label>
+          <input type="text" id="qaSubject" class="modern-input" placeholder="e.g. Computer Science, Physics, History (Optional)">
+        </div>
+
+        <div class="form-group-flex">
+          <label for="qaDifficulty" class="control-label">Target Level</label>
+          <select id="qaDifficulty" class="modern-select">
+            <option value="Any">Standard / Any Level</option>
+            <option value="Beginner">Beginner (Simple & Intuitive)</option>
+            <option value="Intermediate">Intermediate (Core Academic)</option>
+            <option value="Advanced">Advanced (Rigorous & In-depth)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Samples -->
+      <div class="sample-chips-bar">
+        <span class="chips-label">Try asking:</span>
+        <div class="chips-list">
+          <button type="button" class="sample-chip" data-sample="What is TCP and how does it guarantee packet delivery?">What is TCP?</button>
+          <button type="button" class="sample-chip" data-sample="Explain the Doppler effect with an everyday acoustic example.">Doppler Effect</button>
+          <button type="button" class="sample-chip" data-sample="What is the difference between mitosis and meiosis in biology?">Mitosis vs Meiosis</button>
+          <button type="button" class="sample-chip" data-sample="How does compound interest work mathematically and in personal finance?">Compound Interest</button>
+        </div>
+      </div>
+
+      <!-- Question Input Form -->
+      <form id="qaForm" class="module-form" onsubmit="return false;">
+        <div class="input-container">
+          <div class="input-toolbar">
+            <label for="qaQuestion" class="input-label">Your Academic Question</label>
+            <div class="toolbar-actions">
+              <button type="button" class="tool-btn" id="qaPasteBtn" title="Paste text from clipboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                <span>Paste</span>
+              </button>
+              <button type="button" class="tool-btn" id="qaClearBtn" title="Clear input text">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <span>Clear</span>
+              </button>
+            </div>
+          </div>
+
+          <textarea 
+            id="qaQuestion" 
+            class="modern-textarea" 
+            rows="4" 
+            placeholder="Type your question here... (e.g. What is quantum entanglement? How do database indexes work?)"
+            required
+            aria-label="Question Input"
+          ></textarea>
+
+          <div class="input-footer">
+            <div class="char-counter">
+              <span id="qaCharCount">0</span> characters
+              <span class="keyboard-hint">• Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to ask</span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-generate" id="qaSubmitBtn">
+              <span>Ask AI</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Loading State -->
+      <div class="loading-state" id="qaLoading" style="display: none;">
+        <div class="ai-pulse-loader">
+          <div class="pulse-ring"></div>
+          <div class="pulse-core">🧠</div>
+        </div>
+        <div class="loading-message">
+          <h4>Analyzing your question...</h4>
+          <p>EduGenie is consulting educational reasoning models to formulate a concise, structured answer...</p>
+        </div>
+      </div>
+
+      <!-- Error State Banner -->
+      <div class="alert-banner alert-error" id="qaError" style="display: none;">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-body">
+          <h4 class="alert-title" id="qaErrorTitle">Unable to generate response</h4>
+          <p class="alert-message" id="qaErrorMessage">Please try again.</p>
+        </div>
+        <button type="button" class="alert-close" id="qaErrorCloseBtn" aria-label="Dismiss">×</button>
+      </div>
+
+      <!-- Results Area -->
+      <div class="results-wrapper" id="qaResultWrapper" style="display: none;">
+        <div class="results-header">
+          <div class="results-meta">
+            <span class="meta-tag">AI Academic Answer</span>
+            <span class="meta-timestamp" id="qaTimestamp">Just now</span>
+          </div>
+          <div class="results-actions">
+            <button class="btn btn-sm btn-ghost" id="qaCopyBtn" title="Copy answer to clipboard">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="qa-result-box">
+          <div class="qa-answer-text" id="qaAnswerContent"></div>
+          <div id="qaKeyPointsContainer"></div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state-card" id="qaEmptyState">
+        <div class="empty-state-icon">💡</div>
+        <h3 class="empty-state-title">Ask your first question and start learning</h3>
+        <p class="empty-state-desc">Enter any academic concept, formula, mechanism, or homework question above to receive a clear, student-friendly answer with analogies and key takeaways.</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

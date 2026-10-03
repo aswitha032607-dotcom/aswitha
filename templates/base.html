@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }} | EduGenie – AI Learning Assistant</title>
+  <meta name="description" content="EduGenie is an intelligent educational AI assistant for students and self-learners. Q&A, Concept Explanation, Quizzes, Summaries, and Roadmaps.">
+  <link rel="icon" type="image/svg+xml" href="/static/assets/logo.svg">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- ==================== MODERN SHARED NAVBAR ==================== -->
+  <header class="app-header">
+    <div class="header-container">
+      
+      <!-- Left: Logo & Brand -->
+      <a href="/" class="brand-link" aria-label="EduGenie Home">
+        <img src="/static/assets/logo.svg" alt="EduGenie" class="brand-logo" width="200" height="40">
+      </a>
+
+      <!-- Center: Main Navigation (Dedicated Multi-Page Routes) -->
+      <nav class="nav-menu" id="navMenu" aria-label="Primary Navigation">
+        <a href="/" class="nav-item {% if active_page == 'home' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>Home</span>
+        </a>
+        <a href="/ask-ai" class="nav-item {% if active_page == 'ask_ai' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>Ask AI</span>
+        </a>
+        <a href="/explain" class="nav-item {% if active_page == 'explain' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>Explain</span>
+        </a>
+        <a href="/quiz" class="nav-item {% if active_page == 'quiz' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>Quiz</span>
+        </a>
+        <a href="/summarize" class="nav-item {% if active_page == 'summarize' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>Summarize</span>
+        </a>
+        <a href="/learning-path" class="nav-item {% if active_page == 'learning_path' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>Learning Path</span>
+        </a>
+        <a href="/history" class="nav-item {% if active_page == 'history' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>History</span>
+        </a>
+        <a href="/progress" class="nav-item {% if active_page == 'progress' %}active{% endif %}">
+          <span class="nav-dot"></span>
+          <span>Progress</span>
+        </a>
+      </nav>
+
+      <!-- Right: System Status & Mobile Toggle -->
+      <div class="header-actions">
+        <div class="api-status-badge {% if api_configured %}status-active{% else %}status-warning{% endif %}" id="apiStatusBadge" title="{% if api_configured %}Gemini AI Connected ({{ gemini_model }}){% else %}Gemini API Key missing in .env{% endif %}">
+          <span class="status-dot"></span>
+          <span class="status-label">{% if api_configured %}Gemini Ready{% else %}API Key Needed{% endif %}</span>
+        </div>
+        <button class="btn btn-sm btn-ghost" id="configHelpBtn" aria-label="Configuration info">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN PAGE CONTENT ==================== -->
+  <main class="main-content" id="mainContent">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ==================== SHARED FOOTER ==================== -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="brand-mini">
+          <img src="/static/assets/logo.svg" alt="EduGenie" width="160" height="32">
+        </div>
+        <p class="footer-tagline">EduGenie — AI-powered learning for students</p>
+      </div>
+      <div class="footer-nav">
+        <a href="/">Home</a>
+        <a href="/ask-ai">Ask AI</a>
+        <a href="/explain">Explain</a>
+        <a href="/quiz">Quiz</a>
+        <a href="/summarize">Summarize</a>
+        <a href="/learning-path">Learning Path</a>
+        <a href="/history">History</a>
+        <a href="/progress">Progress</a>
+      </div>
+      <div class="footer-copy">
+        <span>© 2026 EduGenie. Educational Assistant.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONFIG / API SETUP MODAL ==================== -->
+  <div class="modal-backdrop" id="configModal" style="display: none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">⚙️</span>
+          <h3>EduGenie Setup & API Configuration</h3>
+        </div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">×</button>
+      </div>
+      <div class="modal-body">
+        <p>EduGenie connects securely to Google Gemini using your <code>GEMINI_API_KEY</code> set in the project <code>.env</code> file. Your key stays protected on the server and is never sent to the browser.</p>
+        
+        <div class="config-instructions">
+          <h4>How to configure your API key:</h4>
+          <ol>
+            <li>Get a free key from <a href="https://aistudio.google.com/" target="_blank" rel="noopener">Google AI Studio</a>.</li>
+            <li>Open the <code>.env</code> file in your EduGenie project root folder.</li>
+            <li>Paste your key:
+              <pre><code>GEMINI_API_KEY=AIzaSy...YourKeyHere...
+GEMINI_MODEL=gemini-3.5-flash-lite</code></pre>
+            </li>
+            <li>Save the file. EduGenie automatically picks up the updated key!</li>
+          </ol>
+        </div>
+
+        <div class="config-features-list">
+          <div class="badge-item">🔒 Server-side security</div>
+          <div class="badge-item">🧠 Gemini 3.5 & Flash support</div>
+          <div class="badge-item">🛡️ Automatic Model Fallbacks</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="modalOkBtn">Got it, thanks!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CLEAR HISTORY CONFIRMATION MODAL ==================== -->
+  <div class="modal-backdrop" id="clearHistoryModal" style="display: none;">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">🗑️</span>
+          <h3>Clear Learning History?</h3>
+        </div>
+        <button class="modal-close" id="cancelClearHistoryXBtn" aria-label="Cancel">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to permanently clear your stored study history and quiz records? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer" style="gap: 0.75rem;">
+        <button class="btn btn-secondary" id="cancelClearHistoryBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmClearHistoryBtn">Yes, Clear History</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application JavaScript -->
+  <script src="/static/script.js"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

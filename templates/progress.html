@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-container" id="progressPage">
+  <div class="container">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-badge">📊 Student Performance Dashboard</div>
+      <h1 class="page-title">My Learning Progress</h1>
+      <p class="page-subtitle">Track your educational milestones, quiz accuracy, explored topics, and study consistency over time.</p>
+    </div>
+
+    <!-- Metric Cards Grid -->
+    <div class="progress-metrics-grid">
+      
+      <div class="metric-card">
+        <div class="metric-icon-wrap icon-blue">💬</div>
+        <div class="metric-data">
+          <div class="metric-value" id="progQuestions">0</div>
+          <div class="metric-label">Questions Asked</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon-wrap icon-purple">📝</div>
+        <div class="metric-data">
+          <div class="metric-value" id="progQuizzes">0</div>
+          <div class="metric-label">Quizzes Completed</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon-wrap icon-emerald">🎯</div>
+        <div class="metric-data">
+          <div class="metric-value" id="progAvgScore">0%</div>
+          <div class="metric-label">Average Quiz Score</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon-wrap icon-amber">💡</div>
+        <div class="metric-data">
+          <div class="metric-value" id="progTopics">0</div>
+          <div class="metric-label">Topics Explored</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon-wrap icon-orange">🔥</div>
+        <div class="metric-data">
+          <div class="metric-value" id="progStreak">0 Days</div>
+          <div class="metric-label">Learning Streak</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon-wrap icon-cyan">⚡</div>
+        <div class="metric-data">
+          <div class="metric-value" id="progTotalActivity">0</div>
+          <div class="metric-label">Total Study Sessions</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Analytics Dashboard Panels -->
+    <div class="dashboard-panels-grid">
+      
+      <!-- Panel 1: Quiz Performance & Accuracy -->
+      <div class="dashboard-panel">
+        <div class="panel-header-clean">
+          <h3 class="panel-title-lg">🎯 Quiz Accuracy & Performance</h3>
+          <span class="panel-badge-sub" id="quizPerformanceBadge">No quizzes yet</span>
+        </div>
+        <div class="panel-body-clean">
+          <div class="accuracy-meter-box">
+            <div class="accuracy-percentage" id="accuracyPercentageText">0%</div>
+            <div class="accuracy-bar-track">
+              <div class="accuracy-bar-fill" id="accuracyBarFill" style="width: 0%;"></div>
+            </div>
+            <div class="accuracy-caption" id="accuracyCaption">Complete your first quiz to calculate accuracy.</div>
+          </div>
+
+          <div class="quiz-history-preview" id="quizHistoryPreviewList">
+            <!-- Populated with recent quiz score chips -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Topics Explored -->
+      <div class="dashboard-panel">
+        <div class="panel-header-clean">
+          <h3 class="panel-title-lg">💡 Topics & Skills Explored</h3>
+          <span class="panel-badge-sub" id="topicCountBadge">0 topics</span>
+        </div>
+        <div class="panel-body-clean">
+          <div class="topics-tag-cloud" id="topicsTagCloud">
+            <!-- Populated with tags -->
+          </div>
+          <div class="empty-inline-state" id="topicsEmptyState">
+            <p>No topics explored yet. Ask a question or explain a concept to build your subject profile.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Recent Activity Timeline Panel -->
+    <div class="dashboard-panel" style="margin-top: 1.75rem;">
+      <div class="panel-header-clean">
+        <h3 class="panel-title-lg">⏱️ Recent Study Activity</h3>
+        <a href="/history" class="panel-link">View Full History →</a>
+      </div>
+      <div class="panel-body-clean">
+        <div class="activity-timeline" id="recentActivityTimeline">
+          <!-- Populated dynamically -->
+        </div>
+
+        <div class="empty-state-card" id="progressEmptyState" style="display: none; padding: 2.5rem 1.5rem;">
+          <div class="empty-state-icon">🚀</div>
+          <h3 class="empty-state-title">Start using EduGenie to build your learning progress</h3>
+          <p class="empty-state-desc">Your learning streak, quiz scores, question history, and topic mastery will be automatically computed and tracked right here.</p>
+          <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <a href="/ask-ai" class="btn btn-primary">Ask a Question</a>
+            <a href="/quiz" class="btn btn-secondary">Take a Quiz</a>
+            <a href="/learning-path" class="btn btn-outline">Build Learning Path</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
